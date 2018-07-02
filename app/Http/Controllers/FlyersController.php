@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Utilities\Country;
 use Illuminate\Http\Request;
 
 class FlyersController extends Controller
@@ -19,11 +20,12 @@ class FlyersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Country $country
+     * @return mixed
      */
-    public function create()
+    public function create(Country $country)
     {
-        return view('flyers.create');
+        return view('flyers.create')->withCountries($country->all());
     }
 
     /**

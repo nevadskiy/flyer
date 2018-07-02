@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-fixed-top navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Project flyer</a>
+            <a class="navbar-brand" href="{{ route('home') }}">Project flyer</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
