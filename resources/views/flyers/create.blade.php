@@ -1,0 +1,5 @@
+@extends('layouts.index')
+
+@section('content')
+    <h1>Selling your home?</h1>
+@endsection
