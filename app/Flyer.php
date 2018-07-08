@@ -6,5 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Flyer extends Model
 {
-    //
+    protected $fillable = [
+        'street',
+        'zip',
+        'city',
+        'country',
+        'state',
+        'price',
+        'description',
+    ];
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
 }

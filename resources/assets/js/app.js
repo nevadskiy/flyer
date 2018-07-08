@@ -5,6 +5,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+// Sweet alert
+require('sweetalert');
+
 require('./bootstrap');
 
 window.Vue = require('vue');
