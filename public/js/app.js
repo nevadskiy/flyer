@@ -13944,14 +13944,7 @@ module.exports = __webpack_require__(44);
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-// Sweet alert
+// Libs
 __webpack_require__(14);
 
 __webpack_require__(16);

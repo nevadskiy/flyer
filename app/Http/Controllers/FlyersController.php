@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Flyer;
+use App\Photo;
 use App\Utilities\Country;
 use App\Utilities\Flash;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
+/**
+ * Class FlyersController
+ * @package App\Http\Controllers
+ */
 class FlyersController extends Controller
 {
     /**
@@ -50,18 +55,33 @@ class FlyersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Flyer $flyer)
     {
-        //
+        return view('flyers.show', compact('flyer'));
+    }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function addPhoto(Request $request, Flyer $flyer)
+    {
+        $request->validate([
+            'photo' => 'required|image'
+        ]);
+
+        $photo = Photo::fromForm($request->file('photo'));
+
+        $flyer->addPhoto($photo);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -72,8 +92,8 @@ class FlyersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -84,7 +104,7 @@ class FlyersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

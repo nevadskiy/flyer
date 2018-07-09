@@ -61,15 +61,9 @@
                 </div>
             </fieldset>
 
-            {{-- TODO: photos uploading. <div class="form-group">--}}
-                {{--<label for="street">Photos:</label>--}}
-                {{--<input type="file" name="photos" id="photos" class="form-control" value="{{ old('photos') }}">--}}
-            {{--</div>--}}
-
             <div class="form-group">
                 <button class="btn btn-primary">Create Flyer</button>
             </div>
         </form>
     </div>
-
 @endsection

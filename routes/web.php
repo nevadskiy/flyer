@@ -5,3 +5,5 @@ Route::get('/', function () {
 })->name('home');
 
 Route::resource('flyers', 'FlyersController');
+
+Route::post('flyers/{flyer}/photos', 'FlyersController@addPhoto')->name('photo.upload');

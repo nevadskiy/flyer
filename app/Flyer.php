@@ -20,4 +20,9 @@ class Flyer extends Model
     {
         return $this->hasMany(Photo::class);
     }
+
+    public function addPhoto(Photo $photo)
+    {
+        return $this->photos()->save($photo);
+    }
 }
