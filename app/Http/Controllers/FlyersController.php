@@ -23,6 +23,7 @@ class FlyersController extends Controller
     public function index()
     {
         //
+        dd('here');
     }
 
     /**
@@ -33,6 +34,7 @@ class FlyersController extends Controller
      */
     public function create(Country $country)
     {
+//        dd('here');
         return view('flyers.create')->withCountries($country->all());
     }
 
@@ -55,11 +57,14 @@ class FlyersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param $zip
+     * @param $street
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Flyer $flyer)
+    public function show($zip, $street)
     {
+        $flyer = Flyer::locatedAt($zip, $street)->first();
+
         return view('flyers.show', compact('flyer'));
     }
 

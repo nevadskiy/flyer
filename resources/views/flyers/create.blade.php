@@ -4,7 +4,8 @@
     <h1>Selling your home?</h1>
 
     <div class="row">
-        <form class="col-6" action="{{ route('flyers.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="col-6" action="{{ route('flyers.store') }}" method="POST">
+            {{ csrf_field() }}
 
             @if(count($errors) > 0)
                 <div class="alert alert-danger">
@@ -16,7 +17,6 @@
                 </div>
             @endif
 
-            @csrf
             <fieldset>
                 <div class="form-group">
                     <label for="street">Street:</label>

@@ -24,7 +24,7 @@ class Flash
      * @param string $type
      * @param string $key
      */
-    public function message(string $title, string $message, string $type, string $key = self::MESSAGE)
+    public function message(string $title, string $message, string $type = 'info', string $key = self::MESSAGE)
     {
         session()->flash($key, [
             'title'   => $title,

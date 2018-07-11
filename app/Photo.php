@@ -9,7 +9,7 @@ class Photo extends Model
 {
     protected $table = 'flyer_photos';
 
-    protected $baseDir = 'flyers/photos';
+    protected $baseDir = 'photos/flyers';
 
     protected $fillable = [
         'path'
