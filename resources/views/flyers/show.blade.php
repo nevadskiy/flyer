@@ -20,7 +20,9 @@
             <div class="row">
                 @foreach($set as $photo)
                     <div class="col-6">
-                        <img src="{{ asset($photo->thumbnail_path) }}" class="img-thumbnail">
+                        <a href="{{ asset($photo->path) }}" data-lity>
+                            <img src="{{ asset($photo->thumbnail_path) }}" class="img-thumbnail">
+                        </a>
                     </div>
                 @endforeach
             </div>

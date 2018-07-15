@@ -20,7 +20,5 @@ class PhotosController extends Controller
         $photo = $request->file('photo');
 
         (new PhotoUploader($flyer, $photo))->save();
-
-        return response('success', 200);
     }
 }

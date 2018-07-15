@@ -1,7 +1,9 @@
 // Libs
-require('sweetalert');
-
 require('./bootstrap');
+
+// Third-party
+require('sweetalert');
+require('lity');
 
 window.Vue = require('vue');
 
