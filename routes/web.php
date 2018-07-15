@@ -9,7 +9,7 @@ Route::get('/home', function () {
 })->name('home');
 
 
-Route::post('/flyers/{flyer}/photos', 'FlyersController@addPhoto')->name('photo.upload');
+Route::post('/flyers/{flyer}/photos', 'PhotosController@store')->name('photo.upload');
 
 Route::resource('flyers', 'FlyersController')->except(['show']);
 Route::get('{zip}/{street}', 'FlyersController@show')->name('flyers.show');

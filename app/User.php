@@ -46,4 +46,15 @@ class User extends Authenticatable
     {
         return $this->id === $relation->user_id;
     }
+
+    /**
+     * Publish a given flyer.
+     *
+     * @param Flyer $flyer
+     * @return false|Model
+     */
+    public function publish(Flyer $flyer)
+    {
+        return $this->flyers()->save($flyer);
+    }
 }

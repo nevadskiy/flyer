@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Flyer;
-use App\Photo;
 use App\Utilities\Country;
 use App\Utilities\Flash;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use Illuminate\Http\UploadedFile;
 
 /**
  * Class FlyersController
@@ -54,11 +52,13 @@ class FlyersController extends Controller
      */
     public function store(Requests\FlyerRequest $request, Flash $flash)
     {
-        $flyer = auth()->user()->flyers()->create($request->all());
+        $flyer = auth()->user()->publish(
+            new Flyer($request->all())
+        );
 
         $flash->message('Success', 'Flyer was successfully created');
 
-        return redirect()->route('flyers.show', [$flyer->zip, $flyer->street]);
+        return redirect(flyer_path($flyer));
     }
 
     /**
@@ -73,23 +73,6 @@ class FlyersController extends Controller
         $flyer = Flyer::locatedAt($zip, $street)->firstOrFail();
 
         return view('flyers.show', compact('flyer'));
-    }
-
-    /**
-     * Add a photo to a given flyer.
-     *
-     * @param Request $request
-     * @param Flyer $flyer
-     * @param Flash $flash
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
-    public function addPhoto(Requests\FlyerPhotoRequest $request, Flyer $flyer)
-    {
-        $photo = Photo::fromFile($request->file('photo'))->upload();
-
-        $flyer->addPhoto($photo);
-
-        return response('success', 200);
     }
 
     /**
