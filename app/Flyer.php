@@ -32,16 +32,31 @@ class Flyer extends Model
         return $query->where(compact('zip', 'street'));
     }
 
+    /**
+     * Get price of a flyer.
+     *
+     * @param $price
+     * @return string
+     */
     public function getPriceAttribute($price)
     {
         return '$' . $price;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function photos()
     {
         return $this->hasMany(Photo::class);
     }
 
+    /**
+     * Save a related photo.
+     *
+     * @param Photo $photo
+     * @return false|Model
+     */
     public function addPhoto(Photo $photo)
     {
         return $this->photos()->save($photo);

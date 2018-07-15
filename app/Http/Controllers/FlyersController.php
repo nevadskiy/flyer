@@ -8,6 +8,7 @@ use App\Utilities\Country;
 use App\Utilities\Flash;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Http\UploadedFile;
 
 /**
  * Class FlyersController
@@ -15,6 +16,11 @@ use App\Http\Requests;
  */
 class FlyersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +29,6 @@ class FlyersController extends Controller
     public function index()
     {
         //
-        dd('here');
     }
 
     /**
@@ -34,7 +39,6 @@ class FlyersController extends Controller
      */
     public function create(Country $country)
     {
-//        dd('here');
         return view('flyers.create')->withCountries($country->all());
     }
 
@@ -47,11 +51,11 @@ class FlyersController extends Controller
      */
     public function store(Requests\FlyerRequest $request, Flash $flash)
     {
-        Flyer::create($request->all());
+        $flyer = Flyer::create($request->all());
 
         $flash->message('Success', 'Flyer was successfully created');
 
-        return redirect()->back();
+        return redirect()->route('flyers.show', [$flyer->zip, $flyer->street]);
     }
 
     /**
@@ -63,7 +67,7 @@ class FlyersController extends Controller
      */
     public function show($zip, $street)
     {
-        $flyer = Flyer::locatedAt($zip, $street)->first();
+        $flyer = Flyer::locatedAt($zip, $street)->firstOrFail();
 
         return view('flyers.show', compact('flyer'));
     }
@@ -78,9 +82,21 @@ class FlyersController extends Controller
             'photo' => 'required|image'
         ]);
 
-        $photo = Photo::fromForm($request->file('photo'));
+        $photo = $this->makePhoto($request->file('photo'));
 
         $flyer->addPhoto($photo);
+    }
+
+    /**
+     * Make photo for flyer.
+     *
+     * @param UploadedFile $file
+     * @return Photo
+     */
+    public function makePhoto(UploadedFile $file)
+    {
+        return Photo::withName($file->getClientOriginalName())
+            ->move($file);
     }
 
     /**

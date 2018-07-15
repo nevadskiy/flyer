@@ -16,13 +16,15 @@
             <div class="description">{{ nl2br($flyer->description) }}</div>
         </div>
         <div class="col-6">
+            @foreach($flyer->photos->chunk(4) as $set)
             <div class="row">
-                @foreach($flyer->photos as $photo)
+                @foreach($set as $photo)
                     <div class="col-6">
-                        <img src="{{ asset($photo->path) }}" class="img-thumbnail">
+                        <img src="{{ asset($photo->thumbnail_path) }}" class="img-thumbnail">
                     </div>
                 @endforeach
             </div>
+            @endforeach
         </div>
     </div>
 
