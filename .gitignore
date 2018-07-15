@@ -15,3 +15,5 @@ yarn.lock
 composer.lock
 package-lock.json
 /public/photos
+/public/css
+/public/js
