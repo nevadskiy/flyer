@@ -16,6 +16,9 @@ use Illuminate\Http\UploadedFile;
  */
 class FlyersController extends Controller
 {
+    /**
+     * FlyersController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth', ['except' => 'show']);
@@ -51,7 +54,7 @@ class FlyersController extends Controller
      */
     public function store(Requests\FlyerRequest $request, Flash $flash)
     {
-        $flyer = Flyer::create($request->all());
+        $flyer = auth()->user()->flyers()->create($request->all());
 
         $flash->message('Success', 'Flyer was successfully created');
 
@@ -73,30 +76,20 @@ class FlyersController extends Controller
     }
 
     /**
+     * Add a photo to a given flyer.
+     *
      * @param Request $request
-     * @return string
+     * @param Flyer $flyer
+     * @param Flash $flash
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function addPhoto(Request $request, Flyer $flyer)
+    public function addPhoto(Requests\FlyerPhotoRequest $request, Flyer $flyer)
     {
-        $request->validate([
-            'photo' => 'required|image'
-        ]);
-
-        $photo = $this->makePhoto($request->file('photo'));
+        $photo = Photo::fromFile($request->file('photo'))->upload();
 
         $flyer->addPhoto($photo);
-    }
 
-    /**
-     * Make photo for flyer.
-     *
-     * @param UploadedFile $file
-     * @return Photo
-     */
-    public function makePhoto(UploadedFile $file)
-    {
-        return Photo::withName($file->getClientOriginalName())
-            ->move($file);
+        return response('success', 200);
     }
 
     /**

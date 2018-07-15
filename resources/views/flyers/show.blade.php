@@ -28,9 +28,11 @@
         </div>
     </div>
 
+    @if(auth()->check() && auth()->user()->owns($flyer))
     <form id="addPhotosForm" action="{{ route('photo.upload', $flyer->id) }}" method="POST" class="dropzone">
         @csrf
     </form>
+    @endif
 
 @endsection
 

@@ -1,8 +1,13 @@
 <?php
 
 Route::get('/', function () {
-    return 'Hello world';
+    return view('pages.home');
 })->name('home');
+
+Route::get('/home', function () {
+    return view('pages.home');
+})->name('home');
+
 
 Route::post('/flyers/{flyer}/photos', 'FlyersController@addPhoto')->name('photo.upload');
 
