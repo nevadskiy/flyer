@@ -54,4 +54,14 @@ class Photo extends Model
     {
         return 'photos/flyers';
     }
+
+    public function delete()
+    {
+        \File::delete([
+            $this->path,
+            $this->thumbnail_path
+        ]);
+
+        parent::delete();
+    }
 }

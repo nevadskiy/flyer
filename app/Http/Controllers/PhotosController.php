@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Flyer;
+use App\Photo;
 use App\Services\PhotoUploader;
 
 class PhotosController extends Controller
@@ -13,12 +14,18 @@ class PhotosController extends Controller
      *
      * @param Requests\FlyerPhotoRequest $request
      * @param Flyer $flyer
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function store(Requests\FlyerPhotoRequest $request, Flyer $flyer)
     {
         $photo = $request->file('photo');
 
         (new PhotoUploader($flyer, $photo))->save();
+    }
+
+    public function destroy(Photo $photo)
+    {
+        $photo->delete();
+
+        return back();
     }
 }

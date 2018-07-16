@@ -23,6 +23,12 @@
                         <a href="{{ asset($photo->path) }}" data-lity>
                             <img src="{{ asset($photo->thumbnail_path) }}" class="img-thumbnail">
                         </a>
+
+                        <form action="{{ route('photo.remove', $photo->id) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
                     </div>
                 @endforeach
             </div>
